@@ -9,6 +9,7 @@ const {
   USER_DOES_NOT_EXIST_ERROR,
 } = require("../constants/errorMessages");
 const { generateUniqueToken } = require("../utils/generateUniqueToken");
+const { getRandomIndex } = require("../utils/helpers");
 
 /**
  * Makes authentication call to GitHub statergy
@@ -61,6 +62,9 @@ const githubAuthCallback = (req, res, next) => {
         github_created_at: Number(new Date(user._json.created_at).getTime()),
         created_at: Date.now(),
         updated_at: Date.now(),
+        colors: {
+          color_id: getRandomIndex(),
+        },
       };
 
       const { userId, incompleteUserDetails } = await users.addOrUpdate(userData);
